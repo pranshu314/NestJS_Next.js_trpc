@@ -6,18 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TrpcModule = void 0;
+exports.TodoModule = void 0;
 const common_1 = require("@nestjs/common");
-const trpc_service_1 = require("./trpc.service");
-const trpc_router_1 = require("./trpc.router");
-const todo_module_1 = require("../todo/todo.module");
-let TrpcModule = class TrpcModule {
+const todo_service_1 = require("./todo.service");
+const database_service_1 = require("../database/database.service");
+let TodoModule = class TodoModule {
 };
-exports.TrpcModule = TrpcModule;
-exports.TrpcModule = TrpcModule = __decorate([
+exports.TodoModule = TodoModule;
+exports.TodoModule = TodoModule = __decorate([
     (0, common_1.Module)({
-        imports: [todo_module_1.TodoModule],
-        providers: [trpc_service_1.TrpcService, trpc_router_1.TrpcRouter],
+        providers: [todo_service_1.TodoService, database_service_1.DatabaseService],
+        exports: [todo_service_1.TodoService],
     })
-], TrpcModule);
-//# sourceMappingURL=trpc.module.js.map
+], TodoModule);
+//# sourceMappingURL=todo.module.js.map
