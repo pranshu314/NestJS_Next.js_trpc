@@ -63,7 +63,12 @@ export declare class TrpcRouter {
             _output_in: typeof import("@trpc/server").unsetMarker;
             _output_out: typeof import("@trpc/server").unsetMarker;
             _meta: object;
-        }, any[]>;
+        }, [{
+            id: string;
+            title: string;
+            description: string | undefined;
+            status: string;
+        }]>;
         getTodo: import("@trpc/server").BuildProcedure<"query", {
             _config: import("@trpc/server").RootConfig<{
                 ctx: object;
@@ -77,7 +82,12 @@ export declare class TrpcRouter {
             _input_out: string;
             _output_in: typeof import("@trpc/server").unsetMarker;
             _output_out: typeof import("@trpc/server").unsetMarker;
-        }, any>;
+        }, {
+            id: string;
+            title: string;
+            description: string | undefined;
+            status: string;
+        }>;
         updateTodo: import("@trpc/server").BuildProcedure<"mutation", {
             _config: import("@trpc/server").RootConfig<{
                 ctx: object;

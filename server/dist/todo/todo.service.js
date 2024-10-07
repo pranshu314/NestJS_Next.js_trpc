@@ -26,11 +26,11 @@ let TodoService = class TodoService {
     }
     async getTodos() {
         const sql = `SELECT * FROM Todo`;
-        return await this.databaseService.all(sql);
+        return (await this.databaseService.all(sql));
     }
     async getTodoById(id) {
         const sql = `SELECT * FROM Todo WHERE id = ?`;
-        return await this.databaseService.get(sql, [id]);
+        return (await this.databaseService.get(sql, [id]));
     }
     async updateTodo(id, title, description, status) {
         const sql = `UPDATE Todo

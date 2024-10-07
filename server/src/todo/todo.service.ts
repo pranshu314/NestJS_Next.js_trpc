@@ -16,12 +16,24 @@ export class TodoService {
 
   async getTodos() {
     const sql = `SELECT * FROM Todo`;
-    return await this.databaseService.all(sql);
+    return (await this.databaseService.all(sql)) as [
+      {
+        id: string;
+        title: string;
+        description: string | undefined;
+        status: string;
+      },
+    ];
   }
 
   async getTodoById(id: string) {
     const sql = `SELECT * FROM Todo WHERE id = ?`;
-    return await this.databaseService.get(sql, [id]);
+    return (await this.databaseService.get(sql, [id])) as {
+      id: string;
+      title: string;
+      description: string | undefined;
+      status: string;
+    };
   }
 
   async updateTodo(

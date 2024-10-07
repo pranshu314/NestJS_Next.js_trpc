@@ -8,8 +8,18 @@ export declare class TodoService {
         description: string | undefined;
         status: string;
     }>;
-    getTodos(): Promise<any[]>;
-    getTodoById(id: string): Promise<any>;
+    getTodos(): Promise<[{
+        id: string;
+        title: string;
+        description: string | undefined;
+        status: string;
+    }]>;
+    getTodoById(id: string): Promise<{
+        id: string;
+        title: string;
+        description: string | undefined;
+        status: string;
+    }>;
     updateTodo(id: string, title: string, description: string, status: string): Promise<{
         id: string;
         title: string;
