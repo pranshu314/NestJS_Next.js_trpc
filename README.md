@@ -9,3 +9,11 @@ cd NestJS_Next.js_trpc/
 make run_server
 make run_web
 ```
+## Implementation
+trpc implements 6 functions.
+- getEcho
+- createTodo
+- getTodos
+- getTodo
+- updateTodo
+- deleteTodo
