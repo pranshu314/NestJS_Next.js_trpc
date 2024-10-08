@@ -25,9 +25,11 @@ import { useSearchParams } from "next/navigation";
 import { trpc } from "../trpc/trpc";
 
 export default function CardWithForm() {
-  <React.Suspense fallback={<div>Loading...</div>}>
-    <CardForm />
-  </React.Suspense>;
+  {
+    /* <React.Suspense fallback={<div>Loading...</div>}> */
+  }
+  <CardForm />;
+  // </React.Suspense>;
 }
 
 function CardForm() {
