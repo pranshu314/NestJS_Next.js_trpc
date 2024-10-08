@@ -16,9 +16,10 @@ import { useState } from "react";
 import { trpc } from "../trpc/trpc";
 
 export function UpdateDemo({ setTodos, todo_id }) {
+  type TodoStatus = "completed" | "pending";
   const [title, setTitle] = useState("Todo Title");
   const [description, setDescription] = useState("Todo Description");
-  const [status, setStatus] = useState("pending");
+  const [status, setStatus] = useState<TodoStatus>("pending");
 
   const [isOpen, setIsOpen] = useState(true);
   return (
@@ -66,7 +67,7 @@ export function UpdateDemo({ setTodos, todo_id }) {
               id="status"
               defaultValue=""
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              onChange={(e) => setStatus(e.target.value as TodoStatus)}
               className="col-span-3"
             />
           </div>
@@ -76,7 +77,7 @@ export function UpdateDemo({ setTodos, todo_id }) {
             type="submit"
             onClick={async () => {
               trpc.updateTodo.mutate({
-                todo_id,
+                id: todo_id,
                 title,
                 description,
                 status,
