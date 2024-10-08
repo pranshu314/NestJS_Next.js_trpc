@@ -28,10 +28,12 @@ export default function CardWithForm() {
 
   const id = searchParams.get("id");
 
+  type TodoStatus = "completed" | "pending";
+
   const [loading, setLoading] = React.useState(true);
   const [title, setTitle] = React.useState("Todo Title");
   const [description, setDescription] = React.useState("Todo Description");
-  const [status, setStatus] = React.useState("pending");
+  const [status, setStatus] = React.useState<TodoStatus>("pending");
 
   // const todo = trpc.getTodo.query(id);
   React.useEffect(() => {
@@ -46,7 +48,7 @@ export default function CardWithForm() {
 
         setTitle(todo.title);
         setDescription(todo.description || "Todo Description");
-        setStatus(todo.status || "pending");
+        setStatus((todo.status as TodoStatus) || "pending");
       } catch (error) {
         console.error("Error fetching todo:", error);
       } finally {
@@ -93,7 +95,7 @@ export default function CardWithForm() {
                 <Label htmlFor="status">Status</Label>
                 <Select
                   value={status}
-                  onValueChange={(value) => setStatus(value)}
+                  onValueChange={(value) => setStatus(value as TodoStatus)}
                 >
                   <SelectTrigger id="status">
                     <SelectValue placeholder={status} />
@@ -116,9 +118,12 @@ export default function CardWithForm() {
           </Button>
           <Button
             onClick={async () => {
-              await trpc.updateTodo.mutate({ id, title, description, status })(
-                (window.location.href = `/`),
-              );
+              if (id === null) {
+                console.error("id is null");
+                return;
+              }
+              await trpc.updateTodo.mutate({ id, title, description, status });
+              window.location.href = `/`;
             }}
           >
             Update
