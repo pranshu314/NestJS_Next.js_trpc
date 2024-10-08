@@ -1,5 +1,6 @@
-/* eslint-disable @next/next/no-async-client-component */
 "use client";
+
+/* eslint-disable @next/next/no-async-client-component */
 import * as React from "react";
 
 import { Button } from "@web/components/ui/button";
