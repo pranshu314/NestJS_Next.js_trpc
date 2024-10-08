@@ -9,8 +9,8 @@ export class TodoService {
   async createTodo(title: string, description?: string) {
     const id = uuidv4(); // Generate a unique ID
     const sql = `INSERT INTO Todo (id, title, description, createdAt, updatedAt)
-                 VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
-    await this.databaseService.run(sql, [id, title, description]);
+                 VALUES ($1, $2, $3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
+    await this.databaseService.run(sql, [id, title, description || null]);
     return { id, title, description, status: 'pending' };
   }
 
@@ -27,7 +27,7 @@ export class TodoService {
   }
 
   async getTodoById(id: string) {
-    const sql = `SELECT * FROM Todo WHERE id = ?`;
+    const sql = `SELECT * FROM Todo WHERE id = $1`;
     return (await this.databaseService.get(sql, [id])) as {
       id: string;
       title: string;
@@ -43,14 +43,14 @@ export class TodoService {
     status: string,
   ) {
     const sql = `UPDATE Todo
-                 SET title = ?, description = ?, status = ?, updatedAt = CURRENT_TIMESTAMP
-                 WHERE id = ?`;
+                 SET title = $1, description = $2, status = $3, updatedAt = CURRENT_TIMESTAMP
+                 WHERE id = $4`;
     await this.databaseService.run(sql, [title, description, status, id]);
     return { id, title, description, status };
   }
 
   async deleteTodo(id: string) {
-    const sql = `DELETE FROM Todo WHERE id = ?`;
+    const sql = `DELETE FROM Todo WHERE id = $1`;
     await this.databaseService.run(sql, [id]);
     return { message: `Todo with id ${id} deleted` };
   }

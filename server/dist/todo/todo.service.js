@@ -20,8 +20,8 @@ let TodoService = class TodoService {
     async createTodo(title, description) {
         const id = (0, uuid_1.v4)();
         const sql = `INSERT INTO Todo (id, title, description, createdAt, updatedAt)
-                 VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
-        await this.databaseService.run(sql, [id, title, description]);
+                 VALUES ($1, $2, $3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
+        await this.databaseService.run(sql, [id, title, description || null]);
         return { id, title, description, status: 'pending' };
     }
     async getTodos() {
@@ -29,18 +29,18 @@ let TodoService = class TodoService {
         return (await this.databaseService.all(sql));
     }
     async getTodoById(id) {
-        const sql = `SELECT * FROM Todo WHERE id = ?`;
+        const sql = `SELECT * FROM Todo WHERE id = $1`;
         return (await this.databaseService.get(sql, [id]));
     }
     async updateTodo(id, title, description, status) {
         const sql = `UPDATE Todo
-                 SET title = ?, description = ?, status = ?, updatedAt = CURRENT_TIMESTAMP
-                 WHERE id = ?`;
+                 SET title = $1, description = $2, status = $3, updatedAt = CURRENT_TIMESTAMP
+                 WHERE id = $4`;
         await this.databaseService.run(sql, [title, description, status, id]);
         return { id, title, description, status };
     }
     async deleteTodo(id) {
-        const sql = `DELETE FROM Todo WHERE id = ?`;
+        const sql = `DELETE FROM Todo WHERE id = $1`;
         await this.databaseService.run(sql, [id]);
         return { message: `Todo with id ${id} deleted` };
     }
