@@ -28,7 +28,7 @@ export default function CardWithForm() {
   {
     /* <React.Suspense fallback={<div>Loading...</div>}> */
   }
-  <CardForm />;
+  return <CardForm />;
   // </React.Suspense>;
 }
 
